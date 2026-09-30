@@ -2,7 +2,7 @@ import {parseCookies,sessionCookie} from "../../_shared/cookies.js";
 import {randomString,sha256Base64url,timingSafeEqual} from "../../_shared/crypto.js";
 import {providerConfig} from "../../_shared/providers.js";
 import {validateGoogleIdToken} from "../../_shared/oidc.js";
-function reject(message,status=400){return new Response(message,{status,headers:{"Cache-Control":"no-store"}});}
+function reject(message,status=400){return new Response(message,{status,headers:{"Cache-Control":"no-store","Content-Type":"text/plain; charset=utf-8"}});}
 export async function onRequestGet(context){
  const provider=context.params.provider,config=providerConfig(provider,context.env);if(!config)return reject("Not Found",404);
  const url=new URL(context.request.url),error=url.searchParams.get("error"),code=url.searchParams.get("code"),state=url.searchParams.get("state");
@@ -14,7 +14,10 @@ export async function onRequestGet(context){
  if(!timingSafeEqual(await sha256Base64url(state),row.state_hash))return reject("Invalid state.");
  await context.env.DB.prepare("DELETE FROM oauth_transactions WHERE id_hash=?").bind(txHash).run();
  const tokenResponse=await fetch(config.token,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded","Accept":"application/json"},body:new URLSearchParams({client_id:config.clientId,client_secret:config.clientSecret,code,redirect_uri:config.redirectUri,code_verifier:row.code_verifier})});
- if(!tokenResponse.ok)return reject("Token exchange failed.");
+ if(!tokenResponse.ok){
+   const detail=await tokenResponse.text();
+   return reject("Token exchange failed. Provider response: "+detail,502);
+ }
  const token=await tokenResponse.json();let identity;
  if(provider==="google"){
    if(!token.id_token)return reject("Missing Google identity token.");

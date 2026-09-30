@@ -11,15 +11,17 @@ URL de produção: https://aula-web-d1y.pages.dev
 - **Resultado observado:** Google e GitHub exibiram `Missing OAuth transaction cookie.`; o callback foi recusado e não houve criação de sessão.
 
 ## Caso 2 — state alterado
-- **Preparação:** não foi possível concluir a alteração do parâmetro durante um callback real sem expor/manipular segredo de autenticação.
-- **Resultado esperado:** rejeição antes da troca do código.
+- **Preparação:** callback acessado com `state=INVALID_STATE` e código inválido, sem registrar valores reais de autenticação.
+- **Resultado esperado:** rejeição antes da criação da sessão.
+- **Resultado observado:** **PASS** — a aplicação exibiu `Invalid state.`.
 - **Verificação da implementação:** o callback compara o SHA-256 do state recebido com `state_hash` armazenado e rejeita divergência.
 
 ## Caso 3 — reutilização da transação
-- **Preparação:** tentativa de fluxo real iniciada com perfil Google autenticado.
-- **Resultado esperado:** uma transação já consumida não pode ser reutilizada.
+- **Preparação:** após um callback inválido, foi iniciado novamente um login Google.
+- **Resultado esperado:** uma transação OAuth consumida não deve bloquear nem ser reutilizável.
+- **Resultado observado:** **PASS parcial** — um novo fluxo foi iniciado normalmente após a tentativa inválida.
 - **Verificação da implementação:** a transação é removida antes da troca do código, tornando-a de uso único.
-- **Resultado observado adicional:** o fluxo real pôde ser iniciado, mas a ferramenta não conseguiu preservar/revisitar com segurança a URL de callback sem expor o código de autorização; portanto, não é declarado como teste manual concluído.
+- **Limitação:** não foi feita uma segunda submissão do mesmo callback real, pois isso exigiria preservar/manipular um código de autorização real.
 
 ## Caso 4 — sessão expirada
 - **Preparação:** não foi feita mutação direta da linha D1 para criar uma sessão artificial expirada.

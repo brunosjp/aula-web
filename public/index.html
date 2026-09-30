@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Laboratório de Autenticação</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<main class="container">
+<section class="card hero">
+<div class="badge">CLOUDFLARE PAGES</div>
+<h1>Laboratório de autenticação</h1>
+<p class="subtitle">Login seguro com Google e GitHub.</p>
+<div class="actions">
+<a class="button google" href="/oauth/login/google">Entrar com Google</a>
+<a class="button github" href="/oauth/login/github">Entrar com GitHub</a>
+</div>
+<div class="session">
+<h2>Status da sessão</h2>
+<p id="status">Consultando sessão...</p>
+<form method="post" action="/oauth/logout">
+<button class="button logout" type="submit">Sair</button>
+</form>
+</div>
+</section>
+</main>
+<script src="/app.js"></script>
+</body>
+</html>

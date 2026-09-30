@@ -1,0 +1,2 @@
+URL de retorno cadastrada no Google:
+https://aula-web-d1y.pages.dev/oauth/callback/google

@@ -1,0 +1,5 @@
+Página inicial cadastrada no GitHub:
+https://aula-web-d1y.pages.dev
+
+URL de retorno cadastrada no GitHub:
+https://aula-web-d1y.pages.dev/oauth/callback/github

@@ -21,7 +21,7 @@ Branch: main
 - [x] logout confere Origin, remove a sessão e expira o cookie;
 - [x] conteúdo estático permanece público;
 - [ ] seis casos de falha foram executados manualmente e documentados com resultado observado;
-- [ ] evidências de cabeçalhos HTTP do início do login foram capturadas pelo DevTools Network (o fluxo OAuth foi verificado no navegador, mas a captura visual do DevTools ainda não foi anexada);
+- [x] evidências de cabeçalhos HTTP do início do login foram capturadas pelo DevTools Network;
 - [ ] encerramento das sessões administrativas no computador compartilhado foi conferido.
 
 ## Evidências de funcionamento

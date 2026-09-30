@@ -54,4 +54,4 @@ URL de produção: https://aula-web-d1y.pages.dev
 - `/api/health`: HTTP 200 e `{"status":"ok"}`.
 
 ## Observação
-Os casos 2, 3, 4 e 5 não são marcados como execução manual completa quando a ferramenta não conseguiu produzir uma observação segura do pedido/resposta. O documento diferencia explicitamente comportamento observado de verificação da implementação, evitando declarar testes não executados como concluídos.
+Os casos 3 e 4 ainda não são marcados como execução manual completa. O documento diferencia explicitamente comportamento observado de verificação da implementação, evitando declarar testes não executados como concluídos.

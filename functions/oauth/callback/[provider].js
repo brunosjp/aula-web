@@ -25,6 +25,8 @@ export async function onRequestGet(context){
    if(!profileResponse.ok)return reject("GitHub profile lookup failed.",401);
    const profile=await profileResponse.json();if(!Number.isInteger(profile.id))return reject("Invalid GitHub identity.",401);
    identity={issuer:"https://github.com",subject:String(profile.id),email:profile.email??null,displayName:profile.name??profile.login??null};
+   const revoke=await fetch("https://api.github.com/applications/"+encodeURIComponent(config.clientId)+"/grant",{method:"DELETE",headers:{Authorization:"Basic "+btoa(config.clientId+":"+config.clientSecret),Accept:"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28","User-Agent":"oauth-pages-lab","Content-Type":"application/json"},body:JSON.stringify({access_token:token.access_token})});
+   if(revoke.status!==204)return reject("GitHub authorization revocation failed.",502);
  }
  const sessionId=randomString(32),sessionHash=await sha256Base64url(sessionId),now=Math.floor(Date.now()/1000);
  await context.env.DB.prepare("INSERT INTO sessions (id_hash,issuer,subject,email,display_name,expires_at,created_at) VALUES (?,?,?,?,?,?,?)").bind(sessionHash,identity.issuer,identity.subject,identity.email,identity.displayName,now+28800,now).run();

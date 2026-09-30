@@ -30,8 +30,8 @@ Branch: main
 - O site exibiu o estado de sessão após os dois logins.
 
 ## Assinaturas
-Estudante 1: ______________________________
+Estudante 1: Bruno Augusto
 
-Estudante 2: ______________________________
+Estudante 2: Vinicius
 
-Data: ____/____/________
+Data: 29/09/2026

@@ -13,7 +13,7 @@ export async function onRequestGet(context){
  if(!row||row.provider!==provider)return reject("Invalid or expired transaction.");
  if(!timingSafeEqual(await sha256Base64url(state),row.state_hash))return reject("Invalid state.");
  await context.env.DB.prepare("DELETE FROM oauth_transactions WHERE id_hash=?").bind(txHash).run();
- const tokenResponse=await fetch(config.token,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded","Accept":"application/json"},body:new URLSearchParams({client_id:config.clientId,client_secret:config.clientSecret,code,redirect_uri:config.redirectUri,code_verifier:row.code_verifier})});
+ const tokenResponse=await fetch(config.token,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded","Accept":"application/json"},body:new URLSearchParams({grant_type:"authorization_code",client_id:config.clientId,client_secret:config.clientSecret,code,redirect_uri:config.redirectUri,code_verifier:row.code_verifier})});
  if(!tokenResponse.ok){
    const detail=await tokenResponse.text();
    return reject("Token exchange failed. Provider response: "+detail,502);

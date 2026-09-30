@@ -5,10 +5,10 @@ URL de produção: https://aula-web-d1y.pages.dev
 > Nenhum valor de cookie, state, nonce, code_challenge, código de autorização, token ou segredo é registrado nesta evidência.
 
 ## Caso 1 — retorno sem cookie temporário
-- **Preparação:** ainda não executado manualmente.
+- **Preparação:** executado automaticamente em navegador sem sessão OAuth.
 - **Pedido enviado:** retorno OAuth sem o cookie `__Host-oauth-tx`.
 - **Resultado esperado:** a rota recusa a resposta e não cria sessão.
-- **Resultado observado:** a implementação exige o cookie e responde com rejeição quando ele está ausente.
+- **Resultado observado:** Google e GitHub responderam HTTP 200 com `Missing OAuth transaction cookie.`; o callback foi recusado e não houve criação de sessão.
 
 ## Caso 2 — state alterado
 - **Preparação:** ainda não executado manualmente.

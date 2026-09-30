@@ -21,6 +21,12 @@ Branch: main
 - [x] logout confere Origin, remove a sessão e expira o cookie;
 - [x] conteúdo estático permanece público;
 - [ ] seis casos de falha foram executados manualmente e documentados com resultado observado;
+  - [x] Caso 1 — retorno sem cookie temporário;
+  - [x] Caso 2 — state alterado;
+  - [ ] Caso 3 — reutilização da transação (verificação de implementação registrada; execução completa não concluída);
+  - [ ] Caso 4 — sessão expirada (verificação de implementação registrada; execução completa não concluída);
+  - [x] Caso 5 — origem inválida na saída, HTTP 403 e sessão preservada;
+  - [x] Caso 6 — reutilização do cookie revogado, HTTP 401 após logout;
 - [x] evidências de cabeçalhos HTTP do início do login foram capturadas pelo DevTools Network;
 - [ ] encerramento das sessões administrativas no computador compartilhado foi conferido.
 

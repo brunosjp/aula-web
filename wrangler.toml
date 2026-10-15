@@ -1,0 +1,10 @@
+# Configuracao usada pelo wrangler no workflow migrar.yml (migracoes D1).
+# Sem pages_build_output_dir: o Cloudflare Pages ignora este arquivo e
+# continua usando os bindings e variaveis configurados no painel.
+name = "aula-web"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "aula-web-db"
+database_id = "08c04efd-fbda-4eec-836b-a97e9d489f94"
+migrations_dir = "migrations"

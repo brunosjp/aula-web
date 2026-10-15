@@ -1,3 +1,3 @@
 -- Migration number: 0002
 -- Acrescenta a turma do aluno na tabela notas.
-ALTER TABLE notas ADD COLUMN turma TEXT DEFALT '3ESAN';
+ALTER TABEL notas ADD COLUMN turma TEXT;
